@@ -47,6 +47,7 @@ function makePdf(title, text) {
     // .rect(368, 68, 2, 28)
     .rect(320, 68, 2, 28)
     .fillAndStroke("#666666", "#848181");
+    
 
   pdfDoc.font("Helvetica", 13).fill("#000").moveDown(2).text(text, 56, 150, {
     paragraphGap: 10,
@@ -54,14 +55,20 @@ function makePdf(title, text) {
     width: 512
   });
 
+  pdfDoc
+    .font("Helvetica-Bold", 15)
+    // .fontSize(15)
+    .fill("#666666")
+    .fillOpacity(0.7)
+    .text("Nahuel Gorosito", {
+      indent: 10,
+    });
+
   pdfDoc.end();
 
-  // pdfjsLib.getDocument(pdfDoc.page).then(pdf => {
-  //   let canvas = document.getElementById("preview");
-  //   let ctx = canvas.getContext("2d");
-  //   console.log(pdf);
-  // })
 }
+
+// text.slice(0, text.search(/\s(?=Nahuel)/));
 
 // function blobPdf(text) {
 //   const pdfDoc = new PDFDocument();
