@@ -3,6 +3,8 @@ const fs = require("fs");
 const PDFDocument = require("pdfkit");
 // const blobStream = require("blob-stream");
 
+const plugText =
+  "Denizen Confidant (https://denizen-confidant.herokuapp.com),";
 let content;
 // let preview = document.getElementById("preview");
 
@@ -19,8 +21,10 @@ $("#link").on("click", () =>
 );
 
 function makePdf(title, text) {
+  text = text.split(plugText);
   const pdfDoc = new PDFDocument();
   window.pdfDoc = pdfDoc;
+
   pdfDoc.pipe(
     fs.createWriteStream(`/Users/nahuelgorosito/Desktop/${title}.pdf`)
   );
@@ -49,11 +53,33 @@ function makePdf(title, text) {
     .fillAndStroke("#666666", "#848181");
     
 
-  pdfDoc.font("Helvetica", 13).fill("#000").moveDown(2).text(text, 56, 150, {
-    paragraphGap: 10,
-    indent: 10,
-    width: 512
-  });
+  pdfDoc
+    .font("Helvetica", 13)
+    .fill("#000")
+    .moveDown(2)
+    .text(text[0], 56, 150, {
+      paragraphGap: 10,
+      indent: 10,
+      width: 512,
+      continued: true,
+    })
+    .fillColor("blue")
+    .font("Helvetica", 13)
+    .link(
+      pdfDoc.x,
+      pdfDoc.y,
+      pdfDoc.widthOfString("Denizen Confidant"),
+      pdfDoc.currentLineHeight(),
+      "https://denizen-confidant.herokuapp.com"
+    )
+    .text("Denizen Confidant", { continued: true })
+    .font("Helvetica", 13)
+    .fill("#000")
+    .text(text[1], {
+      paragraphGap: 10,
+      indent: 10,
+      width: 512,
+    });
 
   pdfDoc
     .font("Helvetica-Bold", 15)
@@ -81,3 +107,4 @@ function makePdf(title, text) {
 //     preview.src = url;
 //   });
 // }
+
