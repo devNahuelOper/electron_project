@@ -66,7 +66,7 @@ function makePdf(title, text) {
     .fillColor("blue")
     .font("Helvetica", 13)
     .link(
-      pdfDoc.x,
+      pdfDoc.x + 66,
       pdfDoc.y,
       pdfDoc.widthOfString("Denizen Confidant"),
       pdfDoc.currentLineHeight(),
