@@ -63,10 +63,11 @@ function makePdf(title, text) {
       width: 512,
       continued: true,
     })
-    .fillColor("blue")
+    // .fillColor("#ffa200")
+    .fillColor("#6b96c2")
     .font("Helvetica", 13)
     .link(
-      pdfDoc.x + 66,
+      368,
       pdfDoc.y,
       pdfDoc.widthOfString("Denizen Confidant"),
       pdfDoc.currentLineHeight(),
